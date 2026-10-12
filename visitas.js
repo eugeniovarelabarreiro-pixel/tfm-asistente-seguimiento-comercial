@@ -1,3 +1,5 @@
+const { extraerSiguientePaso } = require("./extraerSiguientePaso");
+
 const visita = {
   centro: "Hospital de Ejemplo",
   contacto: "Ana",
@@ -7,11 +9,7 @@ const visita = {
 };
 
 
-
-
 const visitas = [];
-
-
 
 
 function guardarVisita(visita) {
@@ -20,12 +18,9 @@ function guardarVisita(visita) {
 }
 
 
-
-
 function visitasDeCentro(nombre) {
   return visitas.filter(v => v.centro === nombre);
 }
-
 
 
 const fs = require("fs");
@@ -39,4 +34,12 @@ function cargarDeArchivo() {
     const guardadas = JSON.parse(fs.readFileSync("visitas.json", "utf8"));
     visitas.push(...guardadas);
   }
+}
+
+function registrarVisita(centro, contacto, fecha, resumen, textoSiguientePaso) {
+  const { resultado, faltan } = extraerSiguientePaso(textoSiguientePaso);
+  const visita = { centro, contacto, fecha, resumen, siguientePaso: resultado };
+  guardarVisita(visita);
+  guardarEnArchivo();
+  return faltan;
 }
