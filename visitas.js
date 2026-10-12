@@ -7,7 +7,11 @@ const visita = {
 };
 
 
+
+
 const visitas = [];
+
+
 
 
 function guardarVisita(visita) {
@@ -16,6 +20,23 @@ function guardarVisita(visita) {
 }
 
 
+
+
 function visitasDeCentro(nombre) {
   return visitas.filter(v => v.centro === nombre);
+}
+
+
+
+const fs = require("fs");
+
+function guardarEnArchivo() {
+  fs.writeFileSync("visitas.json", JSON.stringify(visitas, null, 2));
+}
+
+function cargarDeArchivo() {
+  if (fs.existsSync("visitas.json")) {
+    const guardadas = JSON.parse(fs.readFileSync("visitas.json", "utf8"));
+    visitas.push(...guardadas);
+  }
 }
