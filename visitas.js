@@ -58,4 +58,10 @@ function visitasIncompletas() {
   return visitas.filter(v => !v.siguientePaso.responsable || !v.siguientePaso.fecha);
 }
 
-module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes, resumenVisita, visitasIncompletas };
+function listaPendientes() {
+  const pendientes = visitasIncompletas();
+  if (pendientes.length === 0) return "No tienes visitas pendientes de cerrar.";
+  return pendientes.map(resumenVisita).join("\n");
+}
+
+module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes, resumenVisita, visitasIncompletas, listaPendientes };
