@@ -64,4 +64,10 @@ function listaPendientes() {
   return pendientes.map(resumenVisita).join("\n");
 }
 
-module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes, resumenVisita, visitasIncompletas, listaPendientes };
+function completarSiguientePaso(visita, datos) {
+  visita.siguientePaso = { ...visita.siguientePaso, ...datos };
+  guardarEnArchivo();
+  return visita;
+}
+
+module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes, resumenVisita, visitasIncompletas, listaPendientes, completarSiguientePaso };
