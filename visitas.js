@@ -1,5 +1,6 @@
 const { extraerSiguientePaso } = require('./extraerSiguientePaso');
 
+
 const visita = {
   centro: 'Hospital de Ejemplo',
   contacto: 'Ana',
@@ -8,22 +9,28 @@ const visita = {
   siguientePaso: { acción: 'llamar a Ana', responsable: 'Geni', fecha: 'viernes' }
 };
 
+
 const visitas = [];
+
 
 function guardarVisita(visita) {
   visitas.push(visita);
   return visitas.length;
 }
 
+
 function visitasDeCentro(nombre) {
   return visitas.filter(v => v.centro === nombre);
 }
 
+
 const fs = require("fs");
+
 
 function guardarEnArchivo() {
   fs.writeFileSync("visitas.json", JSON.stringify(visitas, null, 2));
 }
+
 
 function cargarDeArchivo() {
   if (fs.existsSync("visitas.json")) {
@@ -32,6 +39,7 @@ function cargarDeArchivo() {
   }
 }
 
+
 function registrarVisita(centro, contacto, fecha, resumen, textoSiguientePaso) {
   const { resultado, faltan } = extraerSiguientePaso(textoSiguientePaso);
   const visita = { centro, contacto, fecha, resumen, siguientePaso: resultado };
@@ -39,6 +47,7 @@ function registrarVisita(centro, contacto, fecha, resumen, textoSiguientePaso) {
   guardarEnArchivo();
   return faltan;
 }
+
 
 function preguntasPendientes(faltan) {
   const preguntas = {
@@ -49,4 +58,9 @@ function preguntasPendientes(faltan) {
   return faltan.map(f => preguntas[f]);
 }
 
-module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes };
+function resumenVisita(v) {
+  const p = v.siguientePaso;
+  return `${v.fecha} - ${v.centro} (${v.contacto}): ${v.resumen}. Siguiente paso: ${p["acción"] || "sin definir"}, responsable ${p.responsable || "sin definir"}, fecha ${p.fecha || "sin definir"}.`;
+}
+
+module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes, resumenVisita };
