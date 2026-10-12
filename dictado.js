@@ -18,7 +18,8 @@ function leerDictado(texto) {
 
 function registrarDictado(texto) {
   const d = leerDictado(texto);
-  const faltan = registrarVisita(d.centro, d.contacto, d.fecha, d.resumen, d.siguientePaso);
+  const paso = d.siguientePaso.includes(":") ? d.siguientePaso : (d.siguientePaso ? "Acción: " + d.siguientePaso : "");
+  const faltan = registrarVisita(d.centro, d.contacto, d.fecha, d.resumen, paso);
   return preguntasPendientes(faltan);
 }
 
