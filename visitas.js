@@ -8,20 +8,16 @@ const visita = {
   siguientePaso: { acción: 'llamar a Ana', responsable: 'Geni', fecha: 'viernes' }
 };
 
-
 const visitas = [];
-
 
 function guardarVisita(visita) {
   visitas.push(visita);
   return visitas.length;
 }
 
-
 function visitasDeCentro(nombre) {
   return visitas.filter(v => v.centro === nombre);
 }
-
 
 const fs = require("fs");
 
@@ -44,4 +40,13 @@ function registrarVisita(centro, contacto, fecha, resumen, textoSiguientePaso) {
   return faltan;
 }
 
-module.exports = { registrarVisita, visitasDeCentro };
+function preguntasPendientes(faltan) {
+  const preguntas = {
+    "acción": "¿Qué vas a hacer como siguiente paso?",
+    "responsable": "¿Quién se encarga?",
+    "fecha": "¿Para cuándo?"
+  };
+  return faltan.map(f => preguntas[f]);
+}
+
+module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes };
