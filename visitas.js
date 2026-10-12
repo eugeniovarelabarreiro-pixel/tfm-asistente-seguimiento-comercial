@@ -15,6 +15,7 @@ const visitas = db.prepare("SELECT * FROM visitas ORDER BY id").all().map(fila =
  if (fila.responsable !== null) siguientePaso.responsable = fila.responsable;
  if (fila.fecha_paso !== null) siguientePaso.fecha = fila.fecha_paso;
  return {
+  id: fila.id,
   centro: fila.centro,
   contacto: fila.contacto,
   fecha: fila.fecha,
@@ -48,7 +49,7 @@ function cargarDeArchivo() {
 function registrarVisita(centro, contacto, fecha, resumen, textoSiguientePaso) {
  const { resultado, faltan } = extraerSiguientePaso(textoSiguientePaso);
  const visita = { centro, contacto, fecha, resumen, siguientePaso: resultado };
- guardarVisitaEnBD(visita);
+ visita.id = guardarVisitaEnBD(visita);
  guardarVisita(visita);
  return faltan;
 }
@@ -79,6 +80,8 @@ function listaPendientes() {
 
 function completarSiguientePaso(visita, datos) {
   visita.siguientePaso = { ...visita.siguientePaso, ...datos };
+  const p = visita.siguientePaso;
+  db.prepare("UPDATE visitas SET accion = ?, responsable = ?, fecha_paso = ? WHERE id = ?").run(p["acción"] ?? null, p.responsable ?? null, p.fecha ?? null, visita.id);
   guardarEnArchivo();
   return visita;
 }
