@@ -1,7 +1,7 @@
 function buscarDato(texto, etiqueta) {
-  const patron = new RegExp(etiqueta + ':\\s*([^;.]+)', 'i');
+  const patron = new RegExp(etiqueta + ":\\s*([^;.]+)", "i");
   const encontrado = texto.match(patron);
-  return encontrado ? encontrado[1].trim() : '';
+  return encontrado ? encontrado[1].trim() : "";
 }
 
 function leerDictado(texto) {
