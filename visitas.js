@@ -1,5 +1,5 @@
 const { extraerSiguientePaso } = require('./extraerSiguientePaso');
-const { guardarVisita: guardarVisitaEnBD } = require('./db');
+const { db, guardarVisita: guardarVisitaEnBD } = require('./db');
 
 const visita = {
  centro: 'Hospital de Ejemplo',
@@ -9,7 +9,19 @@ const visita = {
  siguientePaso: { acción: 'llamar a Ana', responsable: 'Geni', fecha: 'viernes' }
 };
 
-const visitas = [];
+const visitas = db.prepare("SELECT * FROM visitas ORDER BY id").all().map(fila => {
+ const siguientePaso = {};
+ if (fila.accion !== null) siguientePaso["acción"] = fila.accion;
+ if (fila.responsable !== null) siguientePaso.responsable = fila.responsable;
+ if (fila.fecha_paso !== null) siguientePaso.fecha = fila.fecha_paso;
+ return {
+  centro: fila.centro,
+  contacto: fila.contacto,
+  fecha: fila.fecha,
+  resumen: fila.resumen,
+  siguientePaso
+ };
+});
 
 function guardarVisita(visita) {
  visitas.push(visita);
