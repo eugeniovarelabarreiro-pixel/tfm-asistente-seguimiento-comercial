@@ -1,6 +1,5 @@
 const centros = [];
 
-
 function guardarCentro(nombre, servicio, contactos) {
   const centro = { nombre, servicio, contactos };
   centros.push(centro);
@@ -17,3 +16,5 @@ function cargarCentrosDeArchivo() {
     centros.push(...JSON.parse(fs.readFileSync("centros.json", "utf8")));
   }
 }
+
+module.exports = { guardarCentro, guardarCentrosEnArchivo };
