@@ -1,11 +1,11 @@
-const { extraerSiguientePaso } = require("./extraerSiguientePaso");
+const { extraerSiguientePaso } = require('./extraerSiguientePaso');
 
 const visita = {
-  centro: "Hospital de Ejemplo",
-  contacto: "Ana",
-  fecha: "2026-10-14",
-  resumen: "Demostración del equipo",
-  siguientePaso: { acción: "llamar a Ana", responsable: "Geni", fecha: "viernes" }
+  centro: 'Hospital de Ejemplo',
+  contacto: 'Ana',
+  fecha: '2026-10-14',
+  resumen: 'Demostración del equipo',
+  siguientePaso: { acción: 'llamar a Ana', responsable: 'Geni', fecha: 'viernes' }
 };
 
 
@@ -43,3 +43,5 @@ function registrarVisita(centro, contacto, fecha, resumen, textoSiguientePaso) {
   guardarEnArchivo();
   return faltan;
 }
+
+module.exports = { registrarVisita, visitasDeCentro };
