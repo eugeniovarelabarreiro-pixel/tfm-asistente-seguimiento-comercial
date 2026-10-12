@@ -1,4 +1,5 @@
 const { extraerSiguientePaso } = require('./extraerSiguientePaso');
+const { guardarVisita: guardarVisitaEnBD } = require('./db');
 
 const visita = {
  centro: 'Hospital de Ejemplo',
@@ -35,8 +36,8 @@ function cargarDeArchivo() {
 function registrarVisita(centro, contacto, fecha, resumen, textoSiguientePaso) {
  const { resultado, faltan } = extraerSiguientePaso(textoSiguientePaso);
  const visita = { centro, contacto, fecha, resumen, siguientePaso: resultado };
+ guardarVisitaEnBD(visita);
  guardarVisita(visita);
- guardarEnArchivo();
  return faltan;
 }
 
