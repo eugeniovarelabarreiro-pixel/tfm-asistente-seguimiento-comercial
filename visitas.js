@@ -6,9 +6,16 @@ const visita = {
   siguientePaso: { acción: "llamar a Ana", responsable: "Geni", fecha: "viernes" }
 };
 
+
 const visitas = [];
+
 
 function guardarVisita(visita) {
   visitas.push(visita);
   return visitas.length;
+}
+
+
+function visitasDeCentro(nombre) {
+  return visitas.filter(v => v.centro === nombre);
 }
