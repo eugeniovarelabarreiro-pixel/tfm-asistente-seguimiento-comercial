@@ -9,3 +9,5 @@ function extraerSiguientePaso(texto) {
   const faltan = ['acción', 'responsable', 'fecha'].filter(c => !resultado[c]);
   return { resultado, faltan };
 }
+
+module.exports = { extraerSiguientePaso };
