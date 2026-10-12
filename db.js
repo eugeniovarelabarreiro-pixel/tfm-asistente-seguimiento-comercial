@@ -13,4 +13,11 @@ db.exec(`CREATE TABLE IF NOT EXISTS visitas (
   fecha_paso TEXT
 )`);
 
-module.exports = { db };
+function guardarVisita(visita) {
+  const paso = visita.siguientePaso;
+  const stmt = db.prepare("INSERT INTO visitas (centro, contacto, fecha, resumen, accion, responsable, fecha_paso) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  const resultado = stmt.run(visita.centro, visita.contacto, visita.fecha, visita.resumen, paso["acción"] ?? null, paso.responsable ?? null, paso.fecha ?? null);
+  return resultado.lastInsertRowid;
+}
+
+module.exports = { db, guardarVisita };
