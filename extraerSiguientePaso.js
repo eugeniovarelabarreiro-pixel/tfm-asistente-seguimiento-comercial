@@ -5,5 +5,6 @@ function extraerSiguientePaso(texto) {
     const [clave, valor] = p.split(":");
     resultado[clave.trim().toLowerCase()] = valor.trim();
   }
-  return resultado;
+  const faltan = ["acción", "responsable", "fecha"].filter(c => !resultado[c]);
+  return { resultado, faltan };
 }
