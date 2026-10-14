@@ -1,4 +1,4 @@
-const { registrarVisita, preguntasPendientes } = require("./visitas");
+const { registrarVisita, preguntasPendientes, visitasDeCentro, resultadoComercial } = require("./visitas");
 
 function buscarDato(texto, etiqueta) {
   const patron = new RegExp(etiqueta + ":\\s*([^;.]+)", "i");
@@ -25,7 +25,8 @@ function registrarDictado(texto) {
   if (responsable) partes.push("Responsable: " + responsable);
   if (fechaPaso) partes.push("Fecha: " + fechaPaso);
   const faltan = registrarVisita(d.centro, d.contacto, d.fecha, d.resumen, partes.join("; "));
-  return preguntasPendientes(faltan);
+  const resultado = resultadoComercial(visitasDeCentro(d.centro).at(-1));
+  return { preguntas: preguntasPendientes(faltan), resultado };
 }
 
 module.exports = { buscarDato, leerDictado, registrarDictado };
