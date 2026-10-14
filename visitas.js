@@ -68,6 +68,16 @@ function resumenVisita(v) {
  return `${v.fecha} - ${v.centro} (${v.contacto}): ${v.resumen}. Siguiente paso: ${p["acción"] || "sin definir"}, responsable ${p.responsable || "sin definir"}, fecha ${p.fecha || "sin definir"}.`;
 }
 
+function resultadoComercial(v) {
+  const p = v.siguientePaso;
+  const faltan = [];
+  if (!p.responsable) faltan.push("responsable");
+  if (!p.fecha) faltan.push("fecha");
+  const pendiente = faltan.length ? ` Pendiente concretar ${faltan.join(" y ")}.` : "";
+  const resumen = (v.resumen || "Sin resumen").replace(/[.\s]+$/, "");
+  return `${resumen}. Siguiente paso: ${p["acción"] || "sin definir"}.${pendiente}`;
+}
+
 function visitasIncompletas() {
   return visitas.filter(v => !v.siguientePaso.responsable || !v.siguientePaso.fecha);
 }
@@ -86,4 +96,4 @@ function completarSiguientePaso(visita, datos) {
   return visita;
 }
 
-module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes, resumenVisita, visitasIncompletas, listaPendientes, completarSiguientePaso };
+module.exports = { registrarVisita, visitasDeCentro, preguntasPendientes, resumenVisita, resultadoComercial, visitasIncompletas, listaPendientes, completarSiguientePaso };
