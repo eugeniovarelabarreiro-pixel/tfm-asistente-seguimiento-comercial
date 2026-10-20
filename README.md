@@ -21,3 +21,14 @@ Probado con Node.js 22.23.3. El proyecto usa node:sqlite, incluido en Node; no r
     node prueba.js
 
 La prueba guarda una visita ficticia en asistente.db y un centro ficticio en centros.json, y muestra las preguntas pendientes y el resultado por pantalla. Cada ejecución añade otra visita de ejemplo. En la versión probada aparece un aviso de SQLite experimental, pero la prueba termina correctamente.
+
+## Funcionalidades
+
+- Registra centros con su servicio y sus contactos (datos de ejemplo ficticios).
+- Registra visitas a partir de un dictado con etiquetas y guarda cada visita en una base de datos SQLite local.
+- Extrae del siguiente paso la acción, el responsable y la fecha, y pregunta por lo que falte.
+- Devuelve un resultado comercial de una frase por visita y lista las visitas pendientes de cerrar.
+
+## Stack
+
+JavaScript con Node.js 22. Base de datos local con node:sqlite (incluido en Node, sin instalar paquetes). La extracción del dictado se hace con reglas propias, sin servicios externos de IA.
