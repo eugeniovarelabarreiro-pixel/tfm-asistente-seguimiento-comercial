@@ -32,3 +32,13 @@ La prueba guarda una visita ficticia en asistente.db y un centro ficticio en cen
 ## Stack
 
 JavaScript con Node.js 22. Base de datos local con node:sqlite (incluido en Node, sin instalar paquetes). La extracción del dictado se hace con reglas propias, sin servicios externos de IA.
+
+## Estructura del proyecto
+
+- `dictado.js`: lee el dictado con etiquetas y extrae los datos de la visita.
+- `extraerSiguientePaso.js`: saca del texto del siguiente paso la acción, el responsable y la fecha.
+- `visitas.js`: guarda y consulta las visitas, y construye el resultado comercial.
+- `centros.js`: guarda los centros con sus servicios y contactos.
+- `db.js`: crea y usa la base de datos SQLite local (asistente.db).
+- `prueba.js`: ejemplo de uso que registra una visita ficticia.
+- `1-Ficha-TFM-problema-y-asistente.md` y `2-Tarea-01-siguiente-paso.md`: documentación del trabajo.
